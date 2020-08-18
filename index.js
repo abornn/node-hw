@@ -1,13 +1,13 @@
-var http = require('http');
+const express = require("express");
+const http = require("http");
+const app = express();
+var port = 8080;
 
-var server = http.createServer(function(request, response) {
-
-    response.writeHead(200, {"Content-Type": "text/plain"});
-    response.end("Hello World!");
-
+let server = app.listen(port, () => {
+  console.log("listening on port  " + port);
 });
 
-var port = 8080;
-server.listen(port);
-
-console.log("Server running at http://localhost:%d", port);
+app.use(express.static(__dirname))
+app.use("/", (req, res) => {
+  res.sendFile(__dirname+"/index.html");
+});
